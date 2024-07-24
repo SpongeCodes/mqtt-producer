@@ -19,6 +19,6 @@ public class TrackingDTO {
 
     private Double temp;
 
-    private Instant timestamp;
+    private Long timestamp;
 
 }

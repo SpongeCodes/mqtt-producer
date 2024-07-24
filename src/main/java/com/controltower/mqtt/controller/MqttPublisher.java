@@ -26,7 +26,7 @@ public class MqttPublisher {
     @PostMapping("/publish")
     public ResponseEntity<TrackingDTO> publishToMqtt(@RequestBody TrackingDTO trackingDTO) {
 
-        trackingDTO.setTimestamp(Instant.now());
+        trackingDTO.setTimestamp(Instant.now().getEpochSecond());
         try {
             String topic= "iot";
             String message = JSONUtils.convertToJson(trackingDTO);
