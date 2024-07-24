@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +47,8 @@ public class MqttClientConfig {
     @Bean
     public MqttClient mqttClient() {
         try {
-            mqttClient = new MqttClient(brokerURL,"mqtt-producer");
+            MqttDefaultFilePersistence myPersistence = new MqttDefaultFilePersistence("C:/Users/upama/MQTT-logs");
+            mqttClient = new MqttClient(brokerURL,"mqtt-producer",myPersistence);
             MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(false);
             options.setUserName("controltower");
