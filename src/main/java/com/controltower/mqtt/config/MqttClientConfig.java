@@ -55,6 +55,7 @@ public class MqttClientConfig {
             mqttClient.connect(options);
         } catch (MqttException e) {
             log.error("Error in starting mqtt connection: ",e);
+            System.exit(1);
         }
         log.info("Mqtt connection made... can send messages");
         return mqttClient;
