@@ -47,7 +47,7 @@ public class MqttClientConfig {
     @Bean
     public MqttClient mqttClient() {
         try {
-            MqttDefaultFilePersistence myPersistence = new MqttDefaultFilePersistence("C:/Users/upama/MQTT-logs");
+            MqttDefaultFilePersistence myPersistence = new MqttDefaultFilePersistence("C:/MQTT-logs");
             mqttClient = new MqttClient(brokerURL,"mqtt-producer",myPersistence);
             MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(false);
