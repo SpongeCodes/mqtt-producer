@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.time.ZoneId;
 
 @Controller
 @Slf4j
@@ -26,14 +27,14 @@ public class MqttPublisher {
     @PostMapping("/publish")
     public ResponseEntity<TrackingDTO> publishToMqtt(@RequestBody TrackingDTO trackingDTO) {
 
-        trackingDTO.setTimestamp(Instant.now().getEpochSecond());
+        trackingDTO.setTimestamp(Instant.now().toEpochMilli());
         try {
             String topic= "iot";
             String message = JSONUtils.convertToJson(trackingDTO);
             MqttMessage mqttMessage = new MqttMessage();
             mqttMessage.setQos(2);
             mqttMessage.setPayload(message.getBytes(StandardCharsets.UTF_8));
-            mqttMessage.setRetained(true);
+            //mqttMessage.setRetained(true);  // will replace with last sent message to broker
             mqttClient.publish(topic,mqttMessage);
         } catch (MqttException e) {
            log.error("Mqtt error in publishing:");
